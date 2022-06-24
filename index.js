@@ -7,7 +7,7 @@ game.gameSetUp()
 window.onload = () => {
 
     document.querySelector("#start-random").addEventListener("click", () => {
-        game.arrayRandomize();
+        game.dispoAleatoire();
         game.fillArray();
         window.setInterval(() => {
             game.runGame();

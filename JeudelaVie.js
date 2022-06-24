@@ -2,11 +2,11 @@ class JeudelaVie {
 
     constructor() {
 
-        this.cell_size = 5;
-        this.dead_color = `#181818`;
-        this.alive_color = `#FFFFFF`;
-        this.cells_in_column = Math.floor(canvas.width / this.cell_size);
-        this.cells_in_rows = Math.floor(canvas.height / this.cell_size);
+        this.tailleCellule = 2;
+        this.color_mort = `#181818`;
+        this.color_vie = `#FFFFFF`;
+        this.cells_in_column = Math.floor(canvas.width / this.tailleCellule);
+        this.cells_in_rows = Math.floor(canvas.height / this.tailleCellule);
         this.tableau_actif = [];
         this.tableau_inactif = [];
 
@@ -22,7 +22,7 @@ class JeudelaVie {
 
         };
 
-        this.arrayRandomize = () => {
+        this.dispoAleatoire = () => {
 
             for (let i = 0; i < this.cells_in_rows; i++) {
                 for (let j = 0; j < this.cells_in_column; j++) {
@@ -38,55 +38,55 @@ class JeudelaVie {
                 for (let j = 0; j < this.cells_in_column; j++) {
                     let color;
                     if (this.tableau_actif[i][j] == 1)
-                        color = this.alive_color;
+                        color = this.color_vie;
                     else
-                        color = this.dead_color;
+                        color = this.color_mort;
                     ctx.fillStyle = color;
-                    ctx.fillRect(j * this.cell_size, i * this.cell_size, this.cell_size, this.cell_size);
+                    ctx.fillRect(j * this.tailleCellule, i * this.tailleCellule, this.tailleCellule, this.tailleCellule);
                 }
             }
 
         };
 
-        this.cellulePosition = (row, col) => {
+        this.cellulePosition = (ligne, colonne) => {
             try {
-                return this.tableau_actif[row][col];
+                return this.tableau_actif[ligne][colonne];
             }
             catch {
                 return 0;
             }
         };
 
-        this.voisins = (row, col) => {
-            let total_neighbours = 0;
-            total_neighbours += this.cellulePosition(row - 1, col - 1);
-            total_neighbours += this.cellulePosition(row - 1, col);
-            total_neighbours += this.cellulePosition(row - 1, col + 1);
-            total_neighbours += this.cellulePosition(row, col - 1);
-            total_neighbours += this.cellulePosition(row, col + 1);
-            total_neighbours += this.cellulePosition(row + 1, col - 1);
-            total_neighbours += this.cellulePosition(row + 1, col);
-            total_neighbours += this.cellulePosition(row + 1, col + 1);
-            return total_neighbours;
+        this.voisins = (ligne, colonne) => {
+            let totalVoisins = 0;
+            totalVoisins = totalVoisins + this.cellulePosition(ligne - 1, colonne - 1);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne - 1, colonne);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne - 1, colonne + 1);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne, colonne - 1);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne, colonne + 1);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne + 1, colonne - 1);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne + 1, colonne);
+            totalVoisins = totalVoisins + this.cellulePosition(ligne + 1, colonne + 1);
+            return totalVoisins;
         };
 
-        this.majCellule = (row, col) => {
+        // mise à jour de l'état de la cellule à l'instant T
 
-            const total = this.voisins(row, col);
-            // cell with more than 4 or less then 3 neighbours dies. 1 => 0; 0 => 0
+        this.majCellule = (ligne, colonne) => {
+
+            const total = this.voisins(ligne, colonne);
+
             if (total > 4 || total < 3) {
                 return 0;
-            }
-            // dead cell with 3 neighbours becomes alive. 0 => 1
-            else if (this.tableau_actif[row][col] === 0 && total === 3) {
+            } else if (this.tableau_actif[ligne][colonne] === 0 && total === 3) {
                 return 1;
-            }
-            // or returning its status back. 0 => 0; 1 => 1
-            else {
-                return this.tableau_actif[row][col];
+            } else {
+                return this.tableau_actif[ligne][colonne];
             }
 
         };
+
+        // processus de vie ou de mort des cellules
 
         this.cestLaVie = () => {
 
