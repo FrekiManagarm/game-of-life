@@ -2,11 +2,32 @@ class JeudelaVie {
 
     constructor() {
 
-        this.tailleCellule = 2;
+        this.tailleCellule = 10;
         this.color_mort = `#181818`;
         this.color_vie = `#FFFFFF`;
         this.cells_in_column = Math.floor(canvas.width / this.tailleCellule);
         this.cells_in_rows = Math.floor(canvas.height / this.tailleCellule);
+        this.patternPulsar = [
+            [ ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            [ , 1, 1, 1,  ,  ,  , 1, 1, 1, 0],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [ , 1, 1, 1,  ,  ,  , 1, 1, 1, 0],
+            [ ,  ,  ,  ,  ,  ,  ,  ,  ,  , 0],
+            [ , 1, 1, 1,  ,  ,  , 1, 1, 1, 0],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [1,  ,  ,  , 1,  , 1,  ,  ,  , 1],
+            [ , 1, 1, 1,  ,  ,  , 1, 1, 1, 0]
+        ];
+        this.patternBoat = [
+            [ ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ],
+            [ ,  , 1,  ,  ,  ,  , 1,  ,  ,  ],
+            [1, 1,  , 1, 1, 1, 1,  , 1, 1,  ],
+            [ ,  , 1,  ,  ,  ,  , 1,  ,  ,  ],
+            [ ,  ,  ,  ,  ,  ,  ,  ,  ,  ,  ]
+        ];
         this.tableau_actif = [];
         this.tableau_inactif = [];
 
@@ -21,6 +42,20 @@ class JeudelaVie {
             this.tableau_inactif = this.tableau_actif;
 
         };
+
+        this.drawPattern = (pattern) => {
+            var startRow = Math.floor((this.cells_in_rows / 2) - (pattern.length / 2));
+            var startCol = Math.floor((this.cells_in_column / 2) - (pattern[0].length / 2));
+
+            for (i = startRow; i < startRow + pattern.length; i++) {
+                for (j = startCol; j < startCol + pattern[0].length; j++) {
+                    // if (pattern[i - startRow][j - startCol] === 1) {
+                        this.tableau_actif[i] = startRow
+                        this.tableau_actif[j] = startCol
+                    // }
+                }
+            }
+        }
 
         this.dispoAleatoire = () => {
 

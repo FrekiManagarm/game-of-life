@@ -14,6 +14,14 @@ window.onload = () => {
         }, 50)
     })
 
+    document.querySelector("#start-pulsar").addEventListener("click", () => {
+        game.drawPattern();
+        game.fillArray();
+        window.setInterval(() => {
+            game.runGame()
+        }, 50)
+    })
+
     document.querySelector("#stop").addEventListener("click", () => {
         game.gameSetUp();
     })
