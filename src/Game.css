@@ -21,7 +21,22 @@
     margin-top: 20px;
 }
 
+.input {
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    margin: 1rem;
+}
+
+.buttons-wrapper {
+    margin-top: 1rem;
+}
+
 .button {
     margin-left: 12px;
     cursor: pointer;
+    background-color: whitesmoke;
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
 }

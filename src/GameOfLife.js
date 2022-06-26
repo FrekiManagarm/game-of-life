@@ -182,13 +182,15 @@ class Game extends React.Component {
                 </div>
 
                 <div className="controls">
-                    Intervale des mise à jour <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec
-                    {isRunning ?
-                        <button className="button" onClick={this.stopGame}>Stop</button> :
-                        <button className="button" onClick={this.runGame}>Run</button>
-                    }
-                    <button className="button" onClick={this.dispoAleatoire}>Random</button>
-                    <button className="button" onClick={this.handleClear}>Clear</button>
+                    Intervale des mise à jour <input className='input' value={this.state.interval} onChange={this.handleIntervalChange} />
+                    <div className='buttons-wrapper'>
+                        {isRunning ?
+                            <button className="button" onClick={this.stopGame}>Stop</button> :
+                            <button className="button" onClick={this.runGame}>Jouer</button>
+                        }
+                        <button className="button" onClick={this.dispoAleatoire}>Aléatoire</button>
+                        <button className="button" onClick={this.handleClear}>Clear</button>
+                    </div>
                 </div>
             </div>
         );
