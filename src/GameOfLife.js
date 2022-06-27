@@ -2,7 +2,7 @@ import React from 'react';
 import './Game.css';
 
 
-const TAILLE_CELLULE = 20;
+const TAILLE_CELLULE = 25;
 const LARGEUR = 1400;
 const HAUTEUR = 800;
 
@@ -87,7 +87,7 @@ class Game extends React.Component {
             this.board[y][x] = !this.board[y][x];
         }
 
-        this.setState({ cells: this.makeCells() });
+        this.setState({ cells: this.cestLaVie() });
     }
 
     runGame = () => {
@@ -124,7 +124,7 @@ class Game extends React.Component {
         }
 
         this.board = newBoard;
-        this.setState({ cells: this.makeCells() });
+        this.setState({ cells: this.cestLaVie() });
 
         this.timeoutHandler = window.setTimeout(() => {
             this.runIteration();
@@ -154,7 +154,7 @@ class Game extends React.Component {
 
     handleClear = () => {
         this.board = this.makeEmptyBoard();
-        this.setState({ cells: this.makeCells() });
+        this.setState({ cells: this.cestLaVie() });
     }
 
     dispoAleatoire = () => {
@@ -164,7 +164,7 @@ class Game extends React.Component {
             }
         }
 
-        this.setState({ cells: this.makeCells() });
+        this.setState({ cells: this.cestLaVie() });
     }
 
     render() {
@@ -182,7 +182,6 @@ class Game extends React.Component {
                 </div>
 
                 <div className="controls">
-                    <p>Veuillez disposer les cellules sur le tableau</p>
                     Intervale des mise à jour <input className='input' value={this.state.interval} onChange={this.handleIntervalChange} />
                     <div className='buttons-wrapper'>
                         {isRunning ?
