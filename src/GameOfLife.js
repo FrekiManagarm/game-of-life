@@ -61,7 +61,7 @@ class Game extends React.Component {
         };
     }
 
-    makeCells() {
+    cestLaVie() {
         let cells = [];
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
@@ -182,6 +182,7 @@ class Game extends React.Component {
                 </div>
 
                 <div className="controls">
+                    <p>Veuillez disposer les cellules sur le tableau</p>
                     Intervale des mise à jour <input className='input' value={this.state.interval} onChange={this.handleIntervalChange} />
                     <div className='buttons-wrapper'>
                         {isRunning ?
